@@ -51,7 +51,7 @@ public:
         static ino_t kSelfInode = 0;
         static dev_t kSelfDev = 0;
         HookInfos info;
-        auto maps = lsplt::MapInfo::Scan();
+        auto maps = lsplt::MapInfo::Scan("self");
         if (kSelfInode == 0) {
             auto self = reinterpret_cast<uintptr_t>(__builtin_return_address(0));
             for (auto &map : maps) {

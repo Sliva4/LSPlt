@@ -13,6 +13,7 @@
 #include "elf_util.hpp"
 #include "logging.hpp"
 #include "syscall.hpp"
+#include "xorstr.hpp"
 
 namespace {
 const uintptr_t kPageSize = getpagesize();
@@ -253,7 +254,7 @@ namespace lsplt::inline v2 {
     constexpr static auto kPermLength = 5;
     constexpr static auto kMapEntry = 7;
     std::vector<MapInfo> info;
-    auto path = "/proc/" + std::string{pid} + "/maps";
+    auto path = xorstr_("/proc/") + std::string{pid} + xorstr_("/maps");
     auto maps = std::unique_ptr<FILE, decltype(&fclose)>{fopen(path.c_str(), "r"), &fclose};
     if (maps) {
         char *line = nullptr;

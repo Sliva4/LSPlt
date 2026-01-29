@@ -40,7 +40,7 @@ struct MapInfo {
     /// This is useful to find out the inode of the library to hook.
     /// \param[in] pid The process id to scan. This is "self" by default.
     /// \return A list of \ref MapInfo entries.
-    [[maybe_unused, gnu::visibility("default")]] static std::vector<MapInfo> Scan(std::string_view pid = "self");
+    [[maybe_unused]] static std::vector<MapInfo> Scan(std::string_view pid = "self");
 };
 
 /// \brief Register a hook to a function by inode. For so within an archive, you should use
@@ -65,7 +65,7 @@ struct MapInfo {
 /// #InvalidateBackup().
 /// \see #CommitHook()
 /// \see #InvalidateBackup()
-[[maybe_unused, gnu::visibility("default")]] bool RegisterHook(dev_t dev, ino_t inode, std::string_view symbol,
+[[maybe_unused]] bool RegisterHook(dev_t dev, ino_t inode, std::string_view symbol,
                                                                void *callback, void **backup);
 
 /// \brief Register a hook to a function by inode with offset range. This is useful when hooking
@@ -101,7 +101,7 @@ struct MapInfo {
 /// the maximum value of \p size_t.
 /// \see #CommitHook()
 /// \see #InvalidateBackup()
-[[maybe_unused, gnu::visibility("default")]] bool RegisterHook(dev_t dev, ino_t inode, uintptr_t offset,
+[[maybe_unused]] bool RegisterHook(dev_t dev, ino_t inode, uintptr_t offset,
                                                                size_t size, std::string_view symbol,
                                                                void *callback, void **backup);
 /// \brief Commit all registered hooks.
@@ -111,7 +111,7 @@ struct MapInfo {
 /// \note The return value indicates whether all hooks are successfully committed. You can
 /// determine which hook fails by checking the backup function pointer of #RegisterHook().
 /// \see #RegisterHook()
-[[maybe_unused, gnu::visibility("default")]] bool CommitHook();
+[[maybe_unused]] bool CommitHook();
 
 /// \brief Invalidate backup memory regions
 /// Normally LSPlt will backup the hooked memory region and do hook on a copied anonymous memory
@@ -123,6 +123,6 @@ struct MapInfo {
 /// \note This function is thread-safe.
 /// \note This will be automatically called when the library is unloaded.
 /// \see #RegisterHook()
-[[maybe_unused, gnu::visibility("default")]] bool InvalidateBackup();
+[[maybe_unused]] bool InvalidateBackup();
 }  // namespace v2
 }  // namespace lsplt
